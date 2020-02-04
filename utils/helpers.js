@@ -1,14 +1,17 @@
 // utils/helpers.js
 import React from 'react'
-import {View, StyleSheet} from 'react-native'
+import {View, StyleSheet, AsyncStorage} from 'react-native'
 import {FontAwesome, MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons'
 import {white, red, orange, blue, lightPurp, pink} from './color'
+import {Notifications} from "expo";
+import Permissions from 'expo-permissions'
+
+const NOTIFICATION_KEY = 'UdaciFitness:notifications'
 
 export function isBetween (num, x, y) {
     if (num >= x && num <= y) {
         return true
     }
-
     return false
 }
 

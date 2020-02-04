@@ -16,6 +16,7 @@ import CalendarHistoryComponent from "./components/CalendarHistoryComponent";
 import Constants from "expo-constants";
 import EntryDetail from "./components/EntryDetail";
 import Live from "./components/Live";
+import AnimatedDemo from "./components/AnimatedDemo";
 
 export const UdaciStatusBar = ({backgroundColor, ...props}) => {
     return (
@@ -46,6 +47,14 @@ const RouteConfigs = {
         screen: Live,
         navigationOptions: {
             tabBarLabel: 'Live',
+            tabBarIcon: ({tintColor}) => <Ionicons
+                name='ios-speedometer' size={30} color={tintColor}/>
+        }
+    },
+    AnimatedDemo: {
+        screen: AnimatedDemo,
+        navigationOptions: {
+            tabBarLabel: 'Animation',
             tabBarIcon: ({tintColor}) => <Ionicons
                 name='ios-speedometer' size={30} color={tintColor}/>
         }
