@@ -1,6 +1,12 @@
 import React from 'react'
 import {View, TouchableOpacity, Text, Platform, StyleSheet} from 'react-native'
-import {getMetricMetaInfo, timeToString, getDailyReminderValue} from "../utils/helpers";
+import {
+    getMetricMetaInfo,
+    timeToString,
+    getDailyReminderValue,
+    clearLocalNotification,
+    setLocalNotification
+} from "../utils/helpers";
 import UdacitySlider from "./UdacitySlider";
 import UdacitySteppers from "./UdacitySteppers";
 import DateHeader from "./DateHeader";
@@ -10,7 +16,7 @@ import {removeEntry, submitEntry} from "../utils/api";
 import {connect} from 'react-redux'
 import {addEntry} from "../actions";
 import {purple, white} from "../utils/color";
-import { NavigationActions } from "react-navigation";
+import {NavigationActions} from "react-navigation";
 
 const SubmitBtn = ({onPress}) => {
     return (
@@ -76,7 +82,9 @@ class AddEntry extends React.Component {
         this.toHome()
         //Save to DB (Async storage)
         submitEntry({entry, key})
-        // Clear local notification
+        // Clear local notification when user submits today's stats and set one for tomorrow
+        clearLocalNotification()
+            .then(setLocalNotification)
     }
 
     reset = () => {
@@ -103,7 +111,7 @@ class AddEntry extends React.Component {
             return (
                 <View style={styles.center}>
                     <Ionicons
-                        name={Platform.OS === 'ios' ? 'ios-happy': 'md-happy'}
+                        name={Platform.OS === 'ios' ? 'ios-happy' : 'md-happy'}
                         size={100}
                     />
                     <Text>You already logged your information for today</Text>

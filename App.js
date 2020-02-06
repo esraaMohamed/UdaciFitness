@@ -17,6 +17,8 @@ import Constants from "expo-constants";
 import EntryDetail from "./components/EntryDetail";
 import Live from "./components/Live";
 import AnimatedDemo from "./components/AnimatedDemo";
+import {setLocalNotification} from "./utils/helpers";
+import ImagePickerDemo from "./components/ImagePickerDemo";
 
 export const UdaciStatusBar = ({backgroundColor, ...props}) => {
     return (
@@ -57,6 +59,14 @@ const RouteConfigs = {
             tabBarLabel: 'Animation',
             tabBarIcon: ({tintColor}) => <Ionicons
                 name='ios-speedometer' size={30} color={tintColor}/>
+        }
+    },
+    ImagePickerDemo: {
+        screen: ImagePickerDemo,
+        navigationOptions: {
+            tabBarLabel: 'Image Picker',
+            tabBarIcon: ({tintColor}) => <FontAwesome
+                name='plus-square' size={30} color={tintColor}/>
         }
     }
 }
@@ -109,6 +119,11 @@ const MainNavigator = createStackNavigator({
 const TabNav = createAppContainer(MainNavigator)
 
 class App extends React.Component {
+
+    componentDidMount(){
+        setLocalNotification()
+    }
+
     render() {
         return (
             <Provider store={createStore(reducer)}>
